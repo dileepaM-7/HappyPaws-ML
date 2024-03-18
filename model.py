@@ -40,4 +40,5 @@ def get_recommendation(weight, age, breed):
     predicted_category_index = user_pred.argmax(axis=1)
     predicted_category = food_category_names[predicted_category_index[0]]
     predicted_category = predicted_category.replace('Preferred Foods_', '')
+    
     return predicted_category
