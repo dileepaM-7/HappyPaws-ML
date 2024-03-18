@@ -1,20 +1,14 @@
 # Import necessary libraries
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS
-import joblib
-import pandas as pd
+from model import get_recommendation
 
 app = Flask(__name__)
 CORS(app)
 
-# Load the trained ML model
-model = joblib.load('./model.joblib')
-
-# Read the CSV file into a DataFrame
-df = pd.read_csv('Final.csv')
-
-# Assuming 'Weight', 'Age', and the 'Breed_' columns are your feature columns
-feature_columns = ['Weight', 'Age'] + df.columns[df.columns.str.startswith('Breed_')].tolist()
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route("/predict", methods=['POST'])
 def predict():
